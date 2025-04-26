@@ -505,7 +505,11 @@ uint16_t OpenFontRender::drawHString(const char *str,
 	image_type.face_id = &_face_id;
 	image_type.width   = 0;
 	image_type.height  = _text.size;
-	image_type.flags   = FT_LOAD_DEFAULT;
+	/*
+ 		Original flags: FT_LOAD_DEFAULT
+   		Changed to FT_LOAD_MONOCHROME | FT_LOAD_TARGET_MONO to disable anti aliasing which does not bode well with ePaper
+   	*/
+	image_type.flags     = FT_LOAD_MONOCHROME | FT_LOAD_TARGET_MONO;
 
 	// decode UTF8
 	uint16_t unicode = '\0';
